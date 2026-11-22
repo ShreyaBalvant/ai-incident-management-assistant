@@ -1,0 +1,16 @@
+query_id,query_text,expected_category,expected_priority,relevant_article_ids,expected_service
+EVAL-001,"Over 30 employees reporting VPN client fails with TLS handshake timeout during remote work morning connection.",Network,P2,KB-NET-101,Corporate VPN Gateway
+EVAL-002,"Production database connection pool exhausted and returning 500 internal server error to all checkout shoppers.",Database,P1,KB-DB-301,Production Database Cluster
+EVAL-003,"Single user locked out of domain account after password reset token expired.",Access Management,P4,KB-ACC-201,Identity & SSO Authentication (Active Directory)
+EVAL-004,"Customer facing API cluster returning 502 Bad Gateway across all regions after deploy.",Application/Server,P1,KB-APP-401,Customer-Facing E-Commerce API
+EVAL-005,"Corporate Exchange email delivery delayed by 3 hours for entire company.",Email Service,P2,KB-EML-501,Corporate Email (Exchange/Outlook)
+EVAL-006,"Finance employee clicked link in suspicious email asking for bank account login details.",Security,P1,KB-SEC-701,Identity & SSO Authentication (Active Directory)
+EVAL-007,"User requesting installation of approved statistical analysis software on corporate laptop.",Software,P4,KB-SFT-601,Workstation Desktop Software
+EVAL-008,"Severe packet loss and intermittent drops on 4th floor conference room Wi-Fi access points.",Network,P3,KB-NET-102,Core Network Switches / Wi-Fi
+EVAL-009,"Primary database read replica is lagging behind master by 45 minutes impacting BI dashboards.",Database,P2,KB-DB-302,Production Database Cluster
+EVAL-010,"User receiving HTTP 403 Forbidden when accessing internal project documentation folder.",Access Management,P4,KB-ACC-202,Internal Collaboration (Slack/Teams)
+EVAL-011,"Production application pod experiencing 98 percent CPU and JVM heap memory leak.",Application/Server,P2,KB-APP-402,Enterprise ERP & Billing
+EVAL-012,"Outlook desktop client crashes continuously on startup with damaged data file.",Email Service,P4,KB-EML-502,Corporate Email (Exchange/Outlook)
+EVAL-013,"EDR agent generated critical alert for suspicious ransomware encryption activity on network drive.",Security,P1,KB-SEC-702,Security Endpoint Protection (EDR)
+EVAL-014,"Entire company Slack workspace unresponsive with connection dropouts.",General IT,P2,KB-GEN-802,Internal Collaboration (Slack/Teams)
+EVAL-015,"Need immediate executive bridge for multi-service datacenter power fluctuation.",General IT,P1,KB-GEN-801,Other / General Service

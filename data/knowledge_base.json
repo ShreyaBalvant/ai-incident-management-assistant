@@ -1,0 +1,302 @@
+[
+  {
+    "article_id": "KB-NET-101",
+    "title": "Corporate VPN Gateway Connectivity Failure",
+    "category": "Network",
+    "keywords": "vpn network remote access connectivity authentication gateway anyconnect tunnel timeout",
+    "content": "Users experiencing inability to establish or maintain secure VPN connections through enterprise VPN concentrators or edge gateways. Symptoms include handshake timeout, certificate errors, or intermittent disconnection.",
+    "applicable_service": ["Corporate VPN Gateway", "Core Network Switches / Wi-Fi"],
+    "troubleshooting_steps": [
+      "Verify the health and active session capacity on the primary and secondary VPN concentrators.",
+      "Check RADIUS and MFA authentication server reachability and response latency from the VPN appliance.",
+      "Inspect edge firewall logs for blocked IPsec/SSL traffic on ports 443 and 500/4500.",
+      "Confirm if client certificates or AnyConnect client software versions are expired or outdated.",
+      "If more than 20 users are impacted, check ISP uplink status and failover to secondary BGP line."
+    ],
+    "source_metadata": {
+      "author": "NOC Engineering",
+      "last_updated": "2026-09-15",
+      "runbook_version": "v3.2"
+    }
+  },
+  {
+    "article_id": "KB-NET-102",
+    "title": "Office Wi-Fi and Local Network Packet Loss",
+    "category": "Network",
+    "keywords": "wifi wireless lan packet loss latency dhcp dns access point slow connection switch",
+    "content": "Users in corporate office buildings report intermittent connectivity, high latency, inability to acquire IP addresses via DHCP, or local DNS resolution failures.",
+    "applicable_service": ["Core Network Switches / Wi-Fi"],
+    "troubleshooting_steps": [
+      "Check DHCP scope utilization on the local domain controller to ensure address pool is not exhausted.",
+      "Examine wireless controller for rogue access point interference or overloaded radio channels.",
+      "Verify uplink interface errors or CRC discards on the core distribution switch.",
+      "Perform ping and traceroute tests to gateway and external DNS (8.8.8.8, 1.1.1.1) to pinpoint loss hop.",
+      "Review access point logs for firmware crashes or authentication timeouts with 802.1x RADIUS."
+    ],
+    "source_metadata": {
+      "author": "Network Infrastructure Team",
+      "last_updated": "2026-08-20",
+      "runbook_version": "v2.1"
+    }
+  },
+  {
+    "article_id": "KB-ACC-201",
+    "title": "Active Directory Account Lockout and Password Reset",
+    "category": "Access Management",
+    "keywords": "password reset login account locked badpwdcount authentication active directory sso identity",
+    "content": "Single user or batch of users unable to authenticate against domain controllers or cloud identity provider due to account lockout, expired passwords, or invalid reset tokens.",
+    "applicable_service": ["Identity & SSO Authentication (Active Directory)"],
+    "troubleshooting_steps": [
+      "Inspect Active Directory event log ID 4740 on the PDC emulator to identify the calling source IP/workstation.",
+      "Check for persistent cached credentials on mobile devices or mapped network drives generating repeated bad logon attempts.",
+      "Verify user identity using the out-of-band verification protocol (manager approval or verified callback).",
+      "Unlock the user account and generate a temporary one-time password with mandatory change upon first logon.",
+      "Confirm cloud sync status (Azure AD Connect / Entra ID) if the user accesses hybrid cloud apps."
+    ],
+    "source_metadata": {
+      "author": "IAM Support",
+      "last_updated": "2026-09-10",
+      "runbook_version": "v4.0"
+    }
+  },
+  {
+    "article_id": "KB-ACC-202",
+    "title": "Role-Based Access Control and Permission Denied Errors",
+    "category": "Access Management",
+    "keywords": "permission access denied unauthorized 403 rbac security group shared folder privileges",
+    "content": "Users receive HTTP 403 Forbidden or file system 'Access Denied' errors when attempting to access shared folders, internal portals, or SaaS applications.",
+    "applicable_service": ["Identity & SSO Authentication (Active Directory)", "Internal Collaboration (Slack/Teams)"],
+    "troubleshooting_steps": [
+      "Verify the exact resource path, URL, or application security group required for the user's job role.",
+      "Check the user's effective group memberships in Active Directory or Okta/Entra ID.",
+      "Confirm if group nesting is causing delayed Kerberos token updates (user may need logoff/logon to refresh token).",
+      "Inspect NTFS file share ACLs or application role assignments for explicit deny permissions.",
+      "Require formal change ticket or manager approval before adding user to elevated security groups."
+    ],
+    "source_metadata": {
+      "author": "IAM Governance Team",
+      "last_updated": "2026-07-18",
+      "runbook_version": "v2.0"
+    }
+  },
+  {
+    "article_id": "KB-DB-301",
+    "title": "Production Database Connection Pool Exhaustion and Timeouts",
+    "category": "Database",
+    "keywords": "database sql postgres mysql oracle connection pool timeout max connections lock deadlocks",
+    "content": "Applications report database connection refused, connection timeout, or max connection limits reached. Web services encounter 500 errors due to DB backpressure.",
+    "applicable_service": ["Production Database Cluster"],
+    "troubleshooting_steps": [
+      "Check active versus maximum allowed client connections (`pg_stat_activity` / `SHOW PROCESSLIST`).",
+      "Identify long-running idle in transaction queries and kill blocking processes if confirmed unneeded.",
+      "Inspect database server CPU, memory, and IOPS metrics on read replicas and master node.",
+      "Verify PgBouncer / ProxySQL connection pooler status and queue depth.",
+      "Review recent application deployments for missing connection close calls or sudden query volume spikes."
+    ],
+    "source_metadata": {
+      "author": "Database Administration (DBA)",
+      "last_updated": "2026-10-01",
+      "runbook_version": "v5.1"
+    }
+  },
+  {
+    "article_id": "KB-DB-302",
+    "title": "Database Replication Lag and Read Replica Failures",
+    "category": "Database",
+    "keywords": "replication lag read replica sync wal binlog write delay secondary database",
+    "content": "Read queries returning stale data or replica falling behind the primary node by several minutes or hours, impacting reporting services and read-heavy endpoints.",
+    "applicable_service": ["Production Database Cluster"],
+    "troubleshooting_steps": [
+      "Check replication lag seconds across all active replica instances.",
+      "Inspect network throughput and disk write latency between master and affected replicas.",
+      "Determine whether large batch DDL/DML update jobs saturated the replication thread.",
+      "Temporarily redirect non-critical reporting queries to a dedicated secondary node.",
+      "If replication is broken due to corrupted WAL/binlog, schedule node re-sync from latest snapshot."
+    ],
+    "source_metadata": {
+      "author": "Database Administration (DBA)",
+      "last_updated": "2026-08-11",
+      "runbook_version": "v1.4"
+    }
+  },
+  {
+    "article_id": "KB-APP-401",
+    "title": "Application Gateway HTTP 502/503/504 Service Unavailable",
+    "category": "Application/Server",
+    "keywords": "api 500 502 503 504 bad gateway server down crash service unavailable outage",
+    "content": "Customer-facing or internal applications returning HTTP 502 Bad Gateway, 503 Service Unavailable, or 504 Gateway Timeout errors.",
+    "applicable_service": ["Customer-Facing E-Commerce API", "Enterprise ERP & Billing"],
+    "troubleshooting_steps": [
+      "Check container/pod restart counts and health check endpoints (/healthz, /actuator/health).",
+      "Inspect reverse proxy / load balancer upstream target group health status.",
+      "Review application error logs for unhandled NullPointerExceptions, OutOfMemory errors, or unhandled promise rejections.",
+      "Check server host CPU, RAM, and disk space (/var/log partition full).",
+      "If the degradation started immediately following a production deployment, initiate canary rollback procedure."
+    ],
+    "source_metadata": {
+      "author": "SRE Operations",
+      "last_updated": "2026-10-12",
+      "runbook_version": "v4.2"
+    }
+  },
+  {
+    "article_id": "KB-APP-402",
+    "title": "Server High CPU and Memory Exhaustion (OOM)",
+    "category": "Application/Server",
+    "keywords": "high cpu memory leak oom kill performance latency slow thread dump jvm",
+    "content": "Compute instances or application pods experiencing persistent 90%+ CPU utilization or sudden memory exhaustion leading to Linux OOM killer termination.",
+    "applicable_service": ["Customer-Facing E-Commerce API", "Enterprise ERP & Billing"],
+    "troubleshooting_steps": [
+      "Execute `top` / `htop` to identify the specific processes and threads consuming peak CPU.",
+      "Capture thread dumps and heap dump before restarting process to preserve memory leak diagnostics.",
+      "Examine garbage collection (GC) pause times and JVM heap utilization trends in APM (Datadog/New Relic).",
+      "Scale up horizontal replicas or increase pod resource limits temporarily to stabilize production traffic.",
+      "Engage software development team with thread dump analysis to identify infinite loops or leaky caches."
+    ],
+    "source_metadata": {
+      "author": "Application Performance Team",
+      "last_updated": "2026-09-02",
+      "runbook_version": "v3.0"
+    }
+  },
+  {
+    "article_id": "KB-EML-501",
+    "title": "Corporate Email Outage and Mailflow Stoppage",
+    "category": "Email Service",
+    "keywords": "email outlook exchange mail mailflow smtp mx queuing message delivery deferred",
+    "content": "Organization-wide or multi-user email failure where incoming or outgoing emails are stuck in mail queues, delayed by hours, or Outlook client displays disconnected status.",
+    "applicable_service": ["Corporate Email (Exchange/Outlook)"],
+    "troubleshooting_steps": [
+      "Check Microsoft 365 / Google Workspace public service health dashboards for active tenant advisories.",
+      "Verify inbound MX record resolution and edge spam filter (e.g. Proofpoint/Mimecast) queue depth.",
+      "Review SMTP delivery retry queues and bounce notifications (NDR codes 451, 550).",
+      "Check TLS certificate validity on email delivery connectors.",
+      "If inbound delivery is completely halted, activate backup MX spooling and post status update to internal comms."
+    ],
+    "source_metadata": {
+      "author": "Messaging Engineering",
+      "last_updated": "2026-09-28",
+      "runbook_version": "v3.3"
+    }
+  },
+  {
+    "article_id": "KB-EML-502",
+    "title": "Outlook Client Profile Corruption and Search Failure",
+    "category": "Email Service",
+    "keywords": "outlook ost pst profile indexing search crash freeze email client",
+    "content": "Individual user reports Microsoft Outlook freezing on startup, corrupt OST data file, search index failing to locate recent emails, or calendar synchronization errors.",
+    "applicable_service": ["Corporate Email (Exchange/Outlook)"],
+    "troubleshooting_steps": [
+      "Verify whether the issue reproduces on Outlook Web App (OWA); if OWA works, issue is strictly local client.",
+      "Launch Outlook in Safe Mode (`outlook.exe /safe`) to isolate faulty COM add-ins.",
+      "Rebuild the Windows Search indexing service catalog for Microsoft Outlook.",
+      "Rename or delete the local cached `.ost` file and allow Outlook to recreate mail cache from Exchange server.",
+      "Create a fresh Outlook mail profile via Mail control panel if corruption persists."
+    ],
+    "source_metadata": {
+      "author": "End User Computing",
+      "last_updated": "2026-07-22",
+      "runbook_version": "v1.8"
+    }
+  },
+  {
+    "article_id": "KB-SFT-601",
+    "title": "Enterprise Software Deployment and License Activation",
+    "category": "Software",
+    "keywords": "software install install failed license activation key sccm intune packaging",
+    "content": "Requests or incidents regarding failed automated software deployment through Intune/SCCM, missing license seats, or application installation crashes on managed endpoints.",
+    "applicable_service": ["Workstation Desktop Software"],
+    "troubleshooting_steps": [
+      "Confirm software name, requested version, and verify approval in Corporate Software Catalog.",
+      "Check software license seat availability in the vendor portal or internal licensing server.",
+      "Review local endpoint installation log files (`%TEMP%` or `C:\\ProgramData\\Microsoft\\IntuneManagementExtension\\Logs`).",
+      "Verify endpoint disk space, pending reboot status, and prerequisites (.NET Framework, C++ Redistributable).",
+      "Trigger manual Intune sync on endpoint and push deployment via Company Portal."
+    ],
+    "source_metadata": {
+      "author": "Client Systems Support",
+      "last_updated": "2026-06-30",
+      "runbook_version": "v2.0"
+    }
+  },
+  {
+    "article_id": "KB-SEC-701",
+    "title": "Phishing Incident Response and Credential Compromise",
+    "category": "Security",
+    "keywords": "phishing malicious email suspicious link credentials compromised compromised account soc",
+    "content": "Employee clicked a suspicious link, submitted credentials to a spoofed login page, or received urgent spear-phishing request with malicious attachment.",
+    "applicable_service": ["Security Endpoint Protection (EDR)", "Identity & SSO Authentication (Active Directory)"],
+    "troubleshooting_steps": [
+      "Immediately revoke all active refresh tokens and sessions for the affected user account via IdP console.",
+      "Reset user domain password and require MFA re-enrollment.",
+      "Isolate the user's workstation from the network via EDR (CrowdStrike/Defender) if suspicious executable ran.",
+      "Search message trace to identify all other recipients of the phishing email and purge messages from mailboxes.",
+      "Inspect sign-in logs for abnormal geographic locations or impossible travel anomalies within the last 24 hours."
+    ],
+    "source_metadata": {
+      "author": "SOC Incident Response",
+      "last_updated": "2026-10-15",
+      "runbook_version": "v5.0"
+    }
+  },
+  {
+    "article_id": "KB-SEC-702",
+    "title": "EDR Malware Alert and Endpoint Containment",
+    "category": "Security",
+    "keywords": "malware ransomware virus edr trojan quarantine suspicious process alert soc",
+    "content": "Endpoint Detection and Response (EDR) agent triggers a critical severity alert for suspicious behavioral execution, memory injection, or potential ransomware encryption.",
+    "applicable_service": ["Security Endpoint Protection (EDR)"],
+    "troubleshooting_steps": [
+      "Confirm endpoint containment status in EDR console to prevent lateral movement across subnet.",
+      "Examine process tree, command line execution arguments, parent process, and file hash (SHA256).",
+      "Query VirusTotal and threat intelligence feeds for malicious file hash reputation.",
+      "Identify persistence mechanisms (scheduled tasks, registry run keys, services created).",
+      "Engage Tier 2 SOC Analyst, preserve volatile forensic memory artifacts, and prepare re-imaging if necessary."
+    ],
+    "source_metadata": {
+      "author": "SOC Cyber Defense",
+      "last_updated": "2026-10-05",
+      "runbook_version": "v4.1"
+    }
+  },
+  {
+    "article_id": "KB-GEN-801",
+    "title": "Major Incident Triage and Executive Escalation Guidelines",
+    "category": "General IT",
+    "keywords": "major incident p1 critical escalation war room bridge incident manager executive impact sla",
+    "content": "Standard operating procedure for declaring, orchestrating, and escalating P1 Critical and P2 High major incidents affecting mission-critical business services or large user populations.",
+    "applicable_service": ["Other / General Service"],
+    "troubleshooting_steps": [
+      "Confirm incident severity meets P1/P2 criteria (High Impact + High/Medium Urgency, or 100+ users affected).",
+      "Open dedicated Major Incident War Room bridge (Teams/Zoom) and post initial broadcast to IT Status Page.",
+      "Assign roles immediately: Incident Commander, Technical Lead, Scribe, and Communications Lead.",
+      "Establish 30-minute cadence for stakeholder status updates and track timeline of events.",
+      "Initiate post-incident review (PIR / Root Cause Analysis) within 24 hours of service restoration."
+    ],
+    "source_metadata": {
+      "author": "ITSM Governance",
+      "last_updated": "2026-09-30",
+      "runbook_version": "v6.0"
+    }
+  },
+  {
+    "article_id": "KB-GEN-802",
+    "title": "Internal Communication and Collaboration Tool Degradation",
+    "category": "General IT",
+    "keywords": "slack teams zoom collaboration chat video calls channels outage down messages",
+    "content": "Company-wide or departmental issues with internal instant messaging, audio/video calls, or meeting creation on corporate collaboration platforms.",
+    "applicable_service": ["Internal Collaboration (Slack/Teams)"],
+    "troubleshooting_steps": [
+      "Check vendor status dashboards (Slack Status, Microsoft 365 Admin Portal, Zoom Status).",
+      "Determine if issue affects desktop app, web app, or mobile app equally.",
+      "Test firewall and proxy rules for required WebSocket and WebRTC UDP media port ranges (3478-3481).",
+      "Post temporary communication notice on secondary channel (Email / SMS broadcast) directing staff to backup tool.",
+      "Monitor vendor resolution advisories and confirm service recovery before closing incident."
+    ],
+    "source_metadata": {
+      "author": "Collaboration Systems Team",
+      "last_updated": "2026-08-15",
+      "runbook_version": "v2.2"
+    }
+  }
+]

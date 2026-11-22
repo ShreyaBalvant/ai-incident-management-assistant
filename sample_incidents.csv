@@ -1,0 +1,11 @@
+incident_id,description,category,priority
+INC001,Users are unable to access company VPN since morning. Around 25 employees are affected.,Network,High
+INC002,A user cannot log in because the password reset link is not working.,Access Management,Medium
+INC003,Corporate email is unavailable for several employees.,Email Service,High
+INC004,Production database connections are failing and the application is returning errors.,Database,Critical
+INC005,One employee reports slow Wi-Fi connectivity.,Network,Medium
+INC006,An application API is returning 500 errors after a deployment.,Application/Server,High
+INC007,A user requests installation of an approved analytics application.,Software,Low
+INC008,Users receive access denied errors for a shared application.,Access Management,Medium
+INC009,Production server CPU is continuously above 90 percent.,Application/Server,High
+INC010,The entire department cannot access an internal service.,General IT,High

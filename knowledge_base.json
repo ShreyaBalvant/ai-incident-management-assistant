@@ -1,0 +1,62 @@
+[
+  {
+    "title": "VPN Connectivity Troubleshooting",
+    "category": "Network",
+    "keywords": "vpn network remote access connectivity authentication gateway",
+    "content": "Check VPN gateway availability, authentication service health, user account status, client configuration, and recent network changes. Confirm whether the issue affects one user or many users."
+  },
+  {
+    "title": "Password Reset and Account Access",
+    "category": "Access Management",
+    "keywords": "password reset login account authentication credentials access",
+    "content": "Verify identity, account lock status, password policy, reset-token validity, and identity-provider availability. Ask the user to retry after the account state is confirmed."
+  },
+  {
+    "title": "Corporate Email Outage",
+    "category": "Email Service",
+    "keywords": "email outlook mailbox mail service unavailable messaging",
+    "content": "Check messaging service health, authentication, mailbox availability, DNS/connectivity, and whether the issue is isolated or organization-wide. Review service alerts and recent changes."
+  },
+  {
+    "title": "Database Connection Failure",
+    "category": "Database",
+    "keywords": "database sql db connection timeout application",
+    "content": "Check database availability, connection pool health, credentials, network connectivity, resource utilization, and recent deployments. Review application and database logs."
+  },
+  {
+    "title": "Application or API Service Down",
+    "category": "Application/Server",
+    "keywords": "server application api service down outage deployment",
+    "content": "Check service health, recent deployments, API dependencies, server resources, logs, and monitoring alerts. Determine whether rollback or escalation is required."
+  },
+  {
+    "title": "Network Connectivity Issue",
+    "category": "Network",
+    "keywords": "network internet wifi connectivity packet loss dns",
+    "content": "Check scope of affected users, network device health, DNS resolution, routing, packet loss, and recent network changes. Compare with monitoring alerts."
+  },
+  {
+    "title": "Software Installation Request",
+    "category": "Software",
+    "keywords": "software install application laptop permissions",
+    "content": "Confirm software name, approved version, device compatibility, licensing and user permissions. Follow organizational software approval and deployment procedures."
+  },
+  {
+    "title": "Server Performance Issue",
+    "category": "Application/Server",
+    "keywords": "server cpu memory performance latency slow",
+    "content": "Check CPU, memory, disk, process health, latency, traffic and recent changes. Identify whether the degradation is isolated or service-wide."
+  },
+  {
+    "title": "Access Permission Issue",
+    "category": "Access Management",
+    "keywords": "permission authorization role access denied",
+    "content": "Verify the requested resource, user role, group membership and authorization policy. Confirm approvals before modifying permissions."
+  },
+  {
+    "title": "Incident Escalation Guidelines",
+    "category": "General IT",
+    "keywords": "escalation priority critical high incident impact sla",
+    "content": "Escalate incidents based on business impact, urgency, affected users and service criticality. Critical production outages or broad business impact require rapid escalation and human review."
+  }
+]

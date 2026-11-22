@@ -1,0 +1,26 @@
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Python cache & compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Sensitive environment variables & API keys
+.env
+.env.local
+
+# Local SQLite database
+incidents.db
+*.db
+
+# IDE & editor configs
+.vscode/
+.idea/
+
+# Large presentation files
+*.pptx
